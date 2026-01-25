@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+::selection {
+  @apply bg-yellow-100;
+}
+
+@theme {
+  /* Text colors */
+  --color-primary: var(--color-zinc-800);
+  --color-secondary: var(--color-zinc-500);
+  --color-dim: var(--color-zinc-400);
+  --color-ge-evergreen: #005e60;
+
+  /* Border colors */
+  --color-bprimary: var(--color-zinc-300);
+}
+
+@layer base {
+  img,
+  svg {
+    display: inline;
+  }
+  button {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .btn-lg {
+    @apply px-10 py-3 pb-4;
+  }
+
+  .btn-md {
+    @apply px-5 py-2 pb-3;
+  }
+
+  .primary-link {
+    @apply border-b-secondary cursor-pointer border-b border-dotted hover:border-solid hover:border-b-current;
+  }
+
+  .secondary-link {
+    @apply text-secondary hover:border-primary hover:text-primary cursor-pointer pb-0.75 hover:border-b;
+  }
+}
+
+@layer utilities {
+  .logo-black {
+    filter: invert(1); /* to black */
+  }
+}
