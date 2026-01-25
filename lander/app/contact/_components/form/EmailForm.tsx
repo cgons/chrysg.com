@@ -31,7 +31,7 @@ export default function EmailForm() {
 
     try {
       const payload = JSON.stringify(Object.fromEntries(formData.entries()));
-      const resp = await fetch("http://localhost:3000/api/mail", {
+      const resp = await fetch("/api/mail", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
