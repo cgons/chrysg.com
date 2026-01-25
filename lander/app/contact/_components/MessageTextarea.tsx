@@ -23,9 +23,9 @@ export default function MessageTextarea() {
             className="text-dim hover:text-primary text-xs"
             onClick={handleExpandClick}
           >
-            Expand Message Area{" "}
+            Expand{" "}
             <span className="material-symbols-outlined relative top-1 text-[19px]!">
-              expand_content
+              keyboard_arrow_down
             </span>
           </button>
         )}
