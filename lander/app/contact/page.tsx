@@ -2,16 +2,9 @@ import TertiaryButton from "@/lib/components/TertiaryButton";
 import CopyButton from "./_components/CopyButton";
 import EmailForm from "./_components/form/EmailForm";
 import SocialIcons from "@/lib/components/SocialIcons";
-import logger from "@/lib/logger";
 
 export default function Contact() {
   const emailAddress = "mail@chrysg.com";
-
-  // Log key env. vars. to confirm proper env. loading/packaging
-  logger.info(`NODE_ENV: ${process.env.NODE_ENV}`);
-  logger.info(
-    `NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}`,
-  );
 
   return (
     <div className="mb-10">
