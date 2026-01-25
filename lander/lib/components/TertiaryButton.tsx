@@ -22,8 +22,8 @@ export default function TertiaryButton({
       }
       onClick={onClick}
     >
+      <MatIcon iconName={iconName} className="top-[4px] pr-0.75 text-[18px]!" />
       {contentText}
-      <MatIcon iconName={iconName} className="top-[4px] pl-0.5 text-[18px]!" />
     </button>
   );
 }
