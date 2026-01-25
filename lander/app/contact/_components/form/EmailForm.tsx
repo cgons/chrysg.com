@@ -161,8 +161,6 @@ export default function EmailForm() {
             </p>
           </div>
         </div>
-
-        <div className="h-15"></div>
       </form>
     );
   }

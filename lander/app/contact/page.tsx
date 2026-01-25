@@ -7,10 +7,10 @@ export default function Contact() {
   const emailAddress = "mail@chrysg.com";
 
   return (
-    <div className="mb-10">
+    <div>
       <div className="flex items-center justify-between">
         <h1 className="text-5xl font-extrabold">Contact</h1>
-        <p>
+        <p className="hidden md:block">
           <SocialIcons />
         </p>
       </div>
@@ -40,6 +40,14 @@ export default function Contact() {
       </div>
 
       <EmailForm />
+
+      <div className="h-8"></div>
+
+      <p className="text-center md:hidden">
+        <SocialIcons />
+      </p>
+
+      <div className="h-8"></div>
     </div>
   );
 }
