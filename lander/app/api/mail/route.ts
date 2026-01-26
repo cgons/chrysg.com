@@ -1,10 +1,12 @@
 import { constants as httpstatus } from "node:http2";
+
 import { NextResponse } from "next/server";
+
+import { EmailDetails, EmailDetailsSchema } from "@/app/api/mail/types";
+import logger from "@/lib/logger";
 import { Mailer } from "@/lib/services/mail/mailer";
 import CloudflareTurnstile from "@/lib/services/turnstile/cloudflare";
 import { parseAndValidateRequestPayload } from "@/lib/validation";
-import { EmailDetails, EmailDetailsSchema } from "@/app/api/mail/types";
-import logger from "@/lib/logger";
 
 export async function POST(request: Request): Promise<NextResponse> {
   const result = await parseAndValidateRequestPayload<EmailDetails>(

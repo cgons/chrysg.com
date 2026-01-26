@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import MatIcon from "@/lib/components/MatIcon";
 import mailboxVecImage from "@/public/imgs/mailbox-vec.jpg";
 

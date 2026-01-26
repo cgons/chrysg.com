@@ -1,7 +1,7 @@
-import { SMTPMailAdapter } from "@/lib/services/mail/adapters/smtp";
-import * as utils from "@/lib/utils";
 import { EmailDetails } from "@/app/api/mail/types";
 import logger from "@/lib/logger";
+import { SMTPMailAdapter } from "@/lib/services/mail/adapters/smtp";
+import * as utils from "@/lib/utils";
 
 const EMAIL_SUBJECT = "chrysg.com - Email Form Submission";
 

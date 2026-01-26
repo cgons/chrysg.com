@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import MatIcon from "@/lib/components/MatIcon";
 import vecSendEmailImage from "@/public/imgs/vec-send-email.jpg";
 

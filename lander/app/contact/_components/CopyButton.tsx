@@ -1,8 +1,9 @@
 "use client";
 
+import React, { useState } from "react";
+
 import TertiaryButton from "@/lib/components/TertiaryButton";
 import { delay } from "@/lib/utils";
-import React, { useState } from "react";
 
 export default function CopyButton({
   copyText,

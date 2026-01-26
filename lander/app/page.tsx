@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,8 +5,9 @@ import GELogo from "@/lib/components/GELogo";
 import NameInfo from "@/lib/components/NameInfo";
 import PillButton from "@/lib/components/PillButton";
 import SocialIcons from "@/lib/components/SocialIcons";
-import { cursive } from "./fonts";
 import vectorPowerLines from "@/public/imgs/vector-power-lines.svg";
+
+import { cursive } from "./fonts";
 
 export default function Home() {
   return (

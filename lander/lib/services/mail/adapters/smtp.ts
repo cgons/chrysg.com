@@ -1,4 +1,5 @@
 import * as nodemailer from "nodemailer";
+
 import logger from "@/lib/logger";
 
 export class SMTPMailAdapter {

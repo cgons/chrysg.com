@@ -1,10 +1,12 @@
-import Header from "@/lib/components/Header";
 import "material-symbols/outlined.css";
+import "./globals.css";
+
 import type { Metadata } from "next";
 import React from "react";
 
+import Header from "@/lib/components/Header";
+
 import { inter } from "./fonts";
-import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Chrys Gonsalves - Developer Site and Blog",

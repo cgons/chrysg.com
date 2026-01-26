@@ -1,7 +1,8 @@
+import SocialIcons from "@/lib/components/SocialIcons";
 import TertiaryButton from "@/lib/components/TertiaryButton";
+
 import CopyButton from "./_components/CopyButton";
 import EmailForm from "./_components/form/EmailForm";
-import SocialIcons from "@/lib/components/SocialIcons";
 
 export default function Contact() {
   const emailAddress = "mail@chrysg.com";
