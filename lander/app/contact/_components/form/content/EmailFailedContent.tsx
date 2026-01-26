@@ -24,8 +24,6 @@ export default function EmailFailedContent({
         Please try again if you can.
       </p>
 
-      <div className="h-3"></div>
-
       {!isEmptyObject(formErrors) && (
         <div className="text-secondary font-semibold">
           <p className="mb-2 text-center font-medium! italic">
@@ -39,8 +37,6 @@ export default function EmailFailedContent({
           ))}
         </div>
       )}
-
-      <div className="h-5"></div>
 
       <button
         className="text-link"

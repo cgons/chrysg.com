@@ -20,6 +20,7 @@ export default function EmailForm() {
 
   const [emailFormStatus, setEmailFormStatus] = useState(EmailFormStatus.ENTRY);
   const [emailFormErrors, setEmailFormErrors] = useState<FormFieldErrors>({});
+  const [isTurnstileFailed, setIsTurnstileFailed] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -137,7 +138,12 @@ export default function EmailForm() {
 
         <div className="text-center md:flex md:justify-between">
           <div className="mb-3">
-            <Turnstile />
+            <Turnstile
+              onVerify={() => setIsTurnstileFailed(false)}
+              onError={() => setIsTurnstileFailed(true)}
+              onExpire={() => setIsTurnstileFailed(true)}
+              onUnsupported={() => setIsTurnstileFailed(true)}
+            />
           </div>
 
           <div className="md:text-right">
@@ -146,6 +152,7 @@ export default function EmailForm() {
                 contentText="Send Email"
                 iconName="send"
                 className="px-8"
+                disabled={isTurnstileFailed}
               />
             </p>
 

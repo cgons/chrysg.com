@@ -18,7 +18,7 @@ export default function PrimaryButton({
       className={
         className +
         " bg-primary cursor-pointer rounded-md px-3 pt-1.5 pb-2 text-[15px] font-semibold text-white" +
-        " disabled:bg-dim enabled:hover:bg-zinc-700 disabled:cursor-wait"
+        " disabled:bg-dim enabled:hover:bg-zinc-700 disabled:cursor-not-allowed"
       }
       onClick={onClick}
       disabled={disabled}

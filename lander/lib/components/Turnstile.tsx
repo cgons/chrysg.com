@@ -11,7 +11,19 @@ declare global {
 
 const ELEMENT_ID = "cf-turnstile-comp";
 
-export default function Turnstile() {
+interface TurnstileProps {
+  onVerify?: (token: string) => void;
+  onError?: (errorCode?: string) => void;
+  onExpire?: () => void;
+  onUnsupported?: () => void;
+}
+
+export default function Turnstile({
+  onVerify,
+  onError,
+  onExpire,
+  onUnsupported,
+}: TurnstileProps) {
   const turnstileRef = useRef(null);
 
   function renderTurnstile() {
@@ -26,6 +38,10 @@ export default function Turnstile() {
         window.turnstile.render("#" + ELEMENT_ID, {
           sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!,
           theme: "light",
+          callback: (token: string) => onVerify?.(token),
+          "error-callback": (errorCode?: string) => onError?.(errorCode),
+          "expired-callback": () => onExpire?.(),
+          "unsupported-callback": () => onUnsupported?.(),
         });
       }
     }
