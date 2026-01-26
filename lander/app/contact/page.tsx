@@ -27,7 +27,7 @@ export default function Contact() {
         <p className="border-bprimary mx-auto mb-3 pb-3 text-center text-2xl font-extrabold">
           {emailAddress}
         </p>
-        <div className="inline-flex justify-center gap-2 flex-wrap">
+        <div className="inline-flex flex-wrap justify-center gap-2">
           <CopyButton copyText={emailAddress} />
           <a href="mailto:mail@chrysg.com">
             <TertiaryButton

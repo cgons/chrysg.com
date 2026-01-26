@@ -28,7 +28,9 @@ export default class CloudflareTurnstile {
       return true;
     }
 
-    logger.warn(`Turnstile verification failed: ${respPayload?.["error-codes"]}`);
+    logger.warn(
+      `Turnstile verification failed: ${respPayload?.["error-codes"]}`,
+    );
     return false;
   }
 }
