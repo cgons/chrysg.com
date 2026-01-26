@@ -16,7 +16,23 @@ export async function POST(request: Request): Promise<Response> {
 
     // 1. Verify Turnstile
     const turnstile = new CloudflareTurnstile();
-    await turnstile.verifyToken(emailDetails["cf-turnstile-response"]);
+    const isTokenValid = await turnstile.verifyToken(
+      emailDetails["cf-turnstile-response"],
+    );
+
+    if (!isTokenValid) {
+      logger.warn("Turnstile verification failed.");
+      return new Response(
+        JSON.stringify({
+          field_errors: {
+            turnstile: "Could not verify you are human. Please try again.",
+          },
+        }),
+        {
+          status: httpstatus.HTTP_STATUS_FORBIDDEN,
+        },
+      );
+    }
 
     // 2. Send Email
     try {

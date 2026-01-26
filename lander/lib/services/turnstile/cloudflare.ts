@@ -1,6 +1,11 @@
 import Fetch from "@/lib/fetch";
 import logger from "@/lib/logger";
 
+interface TurnstileVerifyResponse {
+  success?: boolean;
+  "error-codes"?: string[];
+}
+
 export default class CloudflareTurnstile {
   readonly VERIFY_URL =
     "https://challenges.cloudflare.com/turnstile/v0/siteverify";
@@ -11,14 +16,19 @@ export default class CloudflareTurnstile {
       secret: process.env.TURNSTILE_SECRET,
     });
 
-    // If we get a 200 response, then the token is valid...
-    if (resp.status === 200) {
+    let respPayload: TurnstileVerifyResponse | null = null;
+    try {
+      respPayload = await resp.json();
+    } catch {
+      logger.warn("Turnstile verify response was not JSON");
+      return false;
+    }
+
+    if (resp.ok && respPayload?.success === true) {
       return true;
     }
 
-    // Log verification error messages if we get a non-200 response...
-    const respPayload = await resp.json();
-    logger.warn(respPayload["error-codes"]);
+    logger.warn(`Turnstile verification failed: ${respPayload?.["error-codes"]}`);
     return false;
   }
 }
