@@ -24,7 +24,7 @@ export default function RootLayout({
         <link href="/fa/css/brands.min.css" rel="stylesheet" />
       </head>
       <body
-        className={`antialiased ${inter.className} sans-serif text-primary m-auto flex min-h-screen max-w-4xl flex-col px-10 text-[15px]`}
+        className={`antialiased ${inter.className} sans-serif text-primary m-auto flex min-h-screen max-w-4xl flex-col px-8 text-[15px]`}
       >
         <Header />
 

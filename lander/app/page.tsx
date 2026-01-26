@@ -40,7 +40,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="flex flex-col gap-1.5 sm:flex-row">
+        <div className="flex flex-wrap gap-1.5">
           <a
             href="https://www.gevernova.com/software/products/gridos"
             target="_blank"
@@ -67,19 +67,17 @@ export default function Home() {
       <div className="h-10"></div>
 
       {/* -- Email Button -- */}
-      <div className="mb-5">
-        <p className="mb-5 flex items-center">
-          <Link href="/contact" className="mr-5">
-            <PillButton size="medium">
-              <span className="relative bottom-px">Connect via Email</span>
-              <span className="material-symbols-outlined relative top-[5px] ml-2">
-                mail
-              </span>
-            </PillButton>
-          </Link>
+      <div className="mb-5 flex flex-wrap-reverse items-center gap-y-4">
+        <Link href="/contact" className="mr-4">
+          <PillButton size="medium">
+            <span className="relative bottom-px">Connect via Email</span>
+            <span className="material-symbols-outlined relative top-[5px] ml-2">
+              mail
+            </span>
+          </PillButton>
+        </Link>
 
-          <SocialIcons />
-        </p>
+        <SocialIcons />
       </div>
 
       <div className="h-5"></div>

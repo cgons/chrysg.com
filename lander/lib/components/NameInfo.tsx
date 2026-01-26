@@ -8,7 +8,10 @@ export default function NameInfo() {
 
       {/* -- Job Position -- */}
       <h4 className="text-secondary text-lg font-bold sm:text-xl">
-        <span className="">Staff Engineer / Software Architect</span>
+        <span>
+          Staff Engineer /{" "}
+          <span className="text-nowrap">Software Architect</span>
+        </span>
       </h4>
     </>
   );
