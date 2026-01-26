@@ -1,11 +1,12 @@
 import { constants as httpstatus } from "node:http2";
+import { NextResponse } from "next/server";
 import { Mailer } from "@/lib/services/mail/mailer";
 import CloudflareTurnstile from "@/lib/services/turnstile/cloudflare";
 import { parseAndValidateRequestPayload } from "@/lib/validation";
 import { EmailDetails, EmailDetailsSchema } from "@/app/api/mail/types";
 import logger from "@/lib/logger";
 
-export async function POST(request: Request): Promise<Response> {
+export async function POST(request: Request): Promise<NextResponse> {
   const result = await parseAndValidateRequestPayload<EmailDetails>(
     request,
     EmailDetailsSchema,
@@ -22,22 +23,20 @@ export async function POST(request: Request): Promise<Response> {
 
     if (!isTokenValid) {
       logger.warn("Turnstile verification failed.");
-      return new Response(
-        JSON.stringify({
+      return NextResponse.json(
+        {
           field_errors: {
             turnstile: "Could not verify you are human. Please try again.",
           },
-        }),
-        {
-          status: httpstatus.HTTP_STATUS_FORBIDDEN,
         },
+        { status: httpstatus.HTTP_STATUS_FORBIDDEN },
       );
     }
 
     // 2. Send Email
     try {
       await Mailer.sendMail(emailDetails);
-      return new Response(null, {
+      return new NextResponse(null, {
         status: httpstatus.HTTP_STATUS_NO_CONTENT,
       });
     } catch (error) {
@@ -46,10 +45,13 @@ export async function POST(request: Request): Promise<Response> {
     } // Server error will be returned below
   } else if (result.errorResponse) {
     // Since we have an error response, there was an error parsing the request payload...
-    return result.errorResponse;
+    const errorPayload = await result.errorResponse.json();
+    return NextResponse.json(errorPayload, {
+      status: result.errorResponse.status,
+    });
   }
 
-  return new Response(null, {
+  return new NextResponse(null, {
     status: httpstatus.HTTP_STATUS_INTERNAL_SERVER_ERROR,
   });
 }
