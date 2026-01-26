@@ -22,14 +22,14 @@ export default function RootLayout({
         <link href="/fa/css/brands.min.css" rel="stylesheet" />
       </head>
       <body
-        className={`antialiased ${inter.className} sans-serif text-primary m-auto max-w-4xl px-10 text-[15px]`}
+        className={`antialiased ${inter.className} sans-serif text-primary m-auto flex min-h-screen max-w-4xl flex-col px-10 text-[15px]`}
       >
         <Header />
 
         {/* --CONTENT -- */}
-        {children}
+        <main className="flex-1">{children}</main>
 
-        <footer className="border-t-bprimary m-auto mb-5 max-w-[300px] border-t pt-2 text-center">
+        <footer className="border-t-bprimary m-auto mt-auto mb-5 min-w-[225px] border-t pt-2 text-center">
           <div className="text-secondary text-xs/5 font-medium">
             <p>
               <i className="fa-brands fa-github text-sm"></i>
