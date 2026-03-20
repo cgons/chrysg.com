@@ -160,11 +160,11 @@ export default function EmailForm() {
             <p className="text-secondary text-xs italic">
               Note: Emails are sent via{" "}
               <a
-                href="https://aws.amazon.com/ses/"
+                href="https://www.brevo.com/"
                 target="_blank"
                 className="primary-link"
               >
-                Amazon SES
+                Brevo
               </a>
             </p>
           </div>
