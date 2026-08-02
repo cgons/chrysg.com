@@ -11,26 +11,26 @@
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
-    "material-symbols": "^0.44.4",
-    "next": "16.2.4",
-    "nodemailer": "^8.0.6",
-    "react": "19.2.5",
-    "react-dom": "19.2.5",
+    "material-symbols": "^0.45.10",
+    "next": "16.2.12",
+    "nodemailer": "^8.0.11",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "winston": "^3.19.0",
-    "zod": "^4.3.5"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/cloudflare-turnstile": "^0.2.2",
     "@types/node": "^25",
-    "@types/nodemailer": "^8.0.0",
+    "@types/nodemailer": "^8.0.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^10.2.1",
-    "eslint-config-next": "16.2.4",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "16.2.12",
     "eslint-plugin-simple-import-sort": "^13.0.0",
-    "prettier": "^3.8.0",
-    "prettier-plugin-tailwindcss": "^0.7.2",
+    "prettier": "^3.9.6",
+    "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4",
     "typescript": "^6.0.3"
   }
