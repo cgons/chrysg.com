@@ -1,0 +1,58 @@
+version: "3"
+
+vars:
+  APP_DIR: lander
+  IMAGE: chrysg.com/lander
+  # Git ref to build from. Override with: task build:docker-git REF=some-branch
+  REF: '{{.REF | default "master"}}'
+  DEPLOY_HOST: rnvps
+  DEPLOY_COMPOSE: /home/ops/configs/chrysg.com/compose.yaml
+
+tasks:
+  build:docker-git:
+    desc: Build the lander image from the tip of master, tagged <branch>-<sha> and latest
+    vars:
+      BRANCH:
+        sh: git rev-parse --abbrev-ref {{.REF}} | tr '/' '-'
+      SHA:
+        sh: git rev-parse --short=12 {{.REF}}
+    preconditions:
+      - sh: git rev-parse --verify --quiet {{.REF}}
+        msg: "ref '{{.REF}}' does not exist in this repository"
+    cmds:
+      # git archive gives docker a context built from the committed tree, so a
+      # dirty working directory never leaks into the image.
+      - >-
+        git archive --format=tar {{.REF}}:lander
+        | docker build --platform linux/amd64
+        -t {{.IMAGE}}:{{.BRANCH}}-{{.SHA}}
+        -t {{.IMAGE}}:latest
+        -
+      - 'echo "built {{.IMAGE}}:{{.BRANCH}}-{{.SHA}} (also tagged latest)"'
+
+  deps:update:
+    desc: Bump app dependencies to their latest minor versions and reinstall
+    dir: "{{.APP_DIR}}"
+    preconditions:
+      - sh: command -v ncu
+        msg: "ncu not found — install it with: npm i -g npm-check-updates"
+    cmds:
+      - ncu --target minor --upgrade
+      - npm install
+
+  deploy:
+    desc: Build, ship the image to {{.DEPLOY_HOST}}, and recreate the stack
+    cmds:
+      - task: build:docker-git
+      - task: deploy:sync-image
+      - task: deploy:reload-stack
+
+  deploy:sync-image:
+    desc: Copy the local :latest image to {{.DEPLOY_HOST}} over ssh
+    cmds:
+      - docker save {{.IMAGE}}:latest | ssh {{.DEPLOY_HOST}} -C 'docker load'
+
+  deploy:reload-stack:
+    desc: Force-recreate the compose stack on {{.DEPLOY_HOST}}
+    cmds:
+      - ssh -C {{.DEPLOY_HOST}} 'docker compose -f {{.DEPLOY_COMPOSE}} up --force-recreate -t 0 -d'
