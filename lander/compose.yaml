@@ -1,5 +1,6 @@
 services:
   lander:
+    platform: linux/amd64
     image: chrysg.com/lander:latest
     pull_policy: never
     env_file:
