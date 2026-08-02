@@ -2,6 +2,9 @@
   "compilerOptions": {
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
+    // Global-only @types packages that no source file imports. TypeScript 6
+    // stopped auto-including node_modules/@types, so these must be listed.
+    "types": ["cloudflare-turnstile"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
