@@ -5,6 +5,9 @@ vars:
   IMAGE: chrysg.com/lander
   # Git ref to build from. Override with: task build:docker-git REF=some-branch
   REF: '{{.REF | default "master"}}'
+  # Local, gitignored file containing the public key compiled into the client.
+  # Override with: task build:docker-git PUBLIC_ENV_FILE=path/to/env
+  PUBLIC_ENV_FILE: '{{.PUBLIC_ENV_FILE | default "lander/.env.local"}}'
   DEPLOY_HOST: rnvps
   DEPLOY_COMPOSE: /home/ops/configs/chrysg.com/compose.yaml
 
@@ -19,15 +22,23 @@ tasks:
     preconditions:
       - sh: git rev-parse --verify --quiet {{.REF}}
         msg: "ref '{{.REF}}' does not exist in this repository"
+      - sh: test -f "{{.PUBLIC_ENV_FILE}}"
+        msg: "environment file '{{.PUBLIC_ENV_FILE}}' does not exist"
+      - sh: 'set -a; . "{{.PUBLIC_ENV_FILE}}"; test -n "$NEXT_PUBLIC_TURNSTILE_SITE_KEY"'
+        msg: "NEXT_PUBLIC_TURNSTILE_SITE_KEY is missing or empty in '{{.PUBLIC_ENV_FILE}}'"
     cmds:
       # git archive gives docker a context built from the committed tree, so a
       # dirty working directory never leaks into the image.
-      - >-
-        git archive --format=tar {{.REF}}:lander
-        | docker build --platform linux/amd64
-        -t {{.IMAGE}}:{{.BRANCH}}-{{.SHA}}
-        -t {{.IMAGE}}:latest
-        -
+      - |-
+        set -a
+        . "{{.PUBLIC_ENV_FILE}}"
+        set +a
+        git archive --format=tar {{.REF}}:lander |
+          docker build --platform linux/amd64 \
+          --build-arg NEXT_PUBLIC_TURNSTILE_SITE_KEY \
+          -t {{.IMAGE}}:{{.BRANCH}}-{{.SHA}} \
+          -t {{.IMAGE}}:latest \
+          -
       - 'echo "built {{.IMAGE}}:{{.BRANCH}}-{{.SHA}} (also tagged latest)"'
 
   deps:update:

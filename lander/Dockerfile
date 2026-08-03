@@ -22,6 +22,14 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# NEXT_PUBLIC_* values are compiled into the browser bundle by `next build`.
+# This value is public (not a secret), but it must be provided at build time.
+ARG NEXT_PUBLIC_TURNSTILE_SITE_KEY
+ENV NEXT_PUBLIC_TURNSTILE_SITE_KEY=${NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+
+RUN test -n "$NEXT_PUBLIC_TURNSTILE_SITE_KEY" || \
+  (echo "NEXT_PUBLIC_TURNSTILE_SITE_KEY must be provided as a Docker build argument." >&2 && exit 1)
+
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
