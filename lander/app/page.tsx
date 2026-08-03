@@ -52,7 +52,7 @@ export default function Home() {
             </span>
           </a>
           <a
-            href="https://www.ge.com/digital/applications/distributed-energy-resources-management-system-derms"
+            href="https://www.gevernova.com/software/resources/whitepaper/adms-derms-orchestrating-ders-grid-edge"
             target="_blank"
             className="font-medium"
           >
